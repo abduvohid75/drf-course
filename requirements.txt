@@ -1,0 +1,8 @@
+django
+djangorestframework
+Celery
+aiogram
+dotenv
+drf-yasg
+django-cors-headers
+djangorestframework-simplejwt
