@@ -20,7 +20,8 @@ class HabitsViewSet(viewsets.ModelViewSet):
         return Habits.objects.filter(user=user)
 
     def create(self, request):
-        serializer = self.serializer_class(data=request.data, context={'user': request.user.id})
+        serializer = self.serializer_class(data=request.data,
+                                           context={'user': request.user.id})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
@@ -29,7 +30,8 @@ class HabitsViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial,
+        serializer = self.get_serializer(instance, data=request.data,
+                                         partial=partial,
                                          context={'user': request.user.id})
         serializer.is_valid(raise_exception=True)
 
