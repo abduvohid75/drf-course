@@ -6,3 +6,5 @@ dotenv
 drf-yasg
 django-cors-headers
 djangorestframework-simplejwt
+django_celery_beat
+Pillow

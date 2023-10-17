@@ -1,11 +1,10 @@
-from drf_yasg import openapi
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .models import Habits
 
-class HabitsSerializer(serializers.ModelSerializer):
 
+class HabitsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habits
         fields = '__all__'
@@ -18,10 +17,11 @@ class HabitsSerializer(serializers.ModelSerializer):
         periodic = attrs.get('periodic')
 
         if time_to_act and time_to_act > 120:
-            raise serializers.ValidationError("Время на выполнение привычки указывается в секундах и оно не должно превышать 120")
+            raise serializers.ValidationError(
+                "Время на выполнение привычки указывается в секундах и оно не должно превышать 120")
 
-        if periodic != None and periodic >= 8:
-            raise  serializers.ValidationError("Нельзя выполнять привычку реже, чем 1 раз в 7 дней.")
+        if periodic is not None and periodic >= 8:
+            raise serializers.ValidationError("Нельзя выполнять привычку реже, чем 1 раз в 7 дней.")
 
         if relhab and not nicehab:
             raise serializers.ValidationError("Связанная привычка всегда должна быть приятной")
@@ -34,6 +34,7 @@ class HabitsSerializer(serializers.ModelSerializer):
 
         return attrs
 
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -42,4 +43,3 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['email'] = user.email
 
         return token
-

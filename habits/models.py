@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 
+
 class Habits(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
     place = models.CharField(max_length=50, verbose_name="Место")

@@ -3,6 +3,7 @@ from users.models import User
 from rest_framework.test import APIClient
 from .models import Habits
 
+
 class HabitsCRUDTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(email='testuser@test.com', password='testpassword132')
@@ -25,7 +26,8 @@ class HabitsCRUDTestCase(TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_read_habit(self):
-        habit = Habits.objects.create(user=self.user, place='Home', time_to_act=30, time='12:00', action='Exercise', is_public=True)
+        habit = Habits.objects.create(user=self.user, place='Home', time_to_act=30, time='12:00', action='Exercise',
+                                      is_public=True)
         response = self.client.get(f'/api/habits/{habit.id}/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['place'], 'Home')
